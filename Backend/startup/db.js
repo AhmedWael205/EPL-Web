@@ -7,7 +7,9 @@ module.exports = function () {
   mongoose
     .connect(db, {
       useCreateIndex: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true
     })
     .then(() => winston.info(`Connected to MongoDB...`))
 }
