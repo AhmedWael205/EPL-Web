@@ -1,0 +1,6 @@
+{
+  "jwtPrivateKey": "",
+  "dbUrl": "mongodb+srv://Database_member:wawakiki@cluster0.mejvs.mongodb.net/EPL_DB?retryWrites=true&w=majority",
+  "Url": "http://localhost:8080/",
+  "FrontUrl":"http://localhost:3000/"
+}
