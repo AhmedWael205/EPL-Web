@@ -1,0 +1,56 @@
+<html lang="en" dir="ltr">
+  <head >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="signup_scripts.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>Sign up</title>
+
+    <style>
+      body{
+          background-image: url('/assets/imgs/bg.jpg');
+        
+          min-height: 380px;
+        
+          /* Center and scale the image*/
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: relative;  
+        }
+        </style>
+  </head>
+  <body>
+    <div style="border-style: solid;margin:auto;width: 750px;background-color: rgb(255, 255, 255);" >
+            <form id="Submitform" style="margin: 30px;">
+            <h1>
+                Sign Up
+            </h1>
+        
+        
+            <label>Username</label> <input class="inputform" id="username"type="text" name="Username" placeholder="Username"> <br> <br>
+            <label>First Name</label> <input class="inputform" id="firstname"type="text" name="Firstname" placeholder="Your first name"> <br> <br>
+            <label>Last Name</label> <input class="inputform" id="lastname"type="text" name="Lastname" placeholder="Your last name"> <br> <br>
+            <label>Password</label> <input class="inputform" id="password" type="password" name="Password" placeholder="write a password here" ><br> <br>
+            <label>Birthdate</label><input class="inputform" id="age" type="date" name="Birthdate"><br><br>
+            <label>Gender</label> <select class="inputform" id="selGender"name="Gender">
+                <option value="Male"selected>Male</option>
+                <option value="Female">Female</option>
+
+            </select><br><br>
+
+            <label>City</label> <input class="inputform" id="city"type="text" name="City" placeholder="Your city"> <br> <br>
+            <label>Address</label> <input class="inputform" id="address"type="text" name="Address" placeholder="Your address"> <br> <br>
+            <label>Email</label> <input class="inputform" id="email" type="email" name="Email" placeholder="e.g example@gmail.com"> <br> <br>
+            <label>Account Type</label ><select class="inputform" id="selType"Name="Role">
+
+                <option value="Fan">Fan</option>
+
+                <option value="Manager"selected>Manager</option>
+
+            </select><br><br>
+            <input id="submit"type="submit" value="Submit">
+            </form>
+    </div>  
+  </body>
+</html>
