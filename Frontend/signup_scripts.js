@@ -187,8 +187,8 @@ function sendJSON(){
             var responseObj = JSON.parse(this.responseText)
             token = responseObj.token;
             localStorage.setItem("token", token);
-
-            window.location.replace("http://127.0.0.1:5500/Home.html")
+            
+            window.location.replace("/Home.html")
             return true;
 
         }
