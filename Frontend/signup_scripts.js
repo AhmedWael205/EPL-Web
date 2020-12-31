@@ -16,13 +16,19 @@ function hasUpperCase(str) {
     }
 function validateUsername(){
     var username=$("#username").val();
-    var letterNumber = /^[0-9a-zA-Z]+$/;
+    var letterNumber = /^[a-zA-Z]+[a-zA-Z0-9]{1,}$/;
+    var pattern2= /^.*[0-9]+.*$/;
     if(!letterNumber.test(username))
         {
             
-            $('#username').after('<span id="error-msg">Your username must contain only numbers and lettters.</span>');
+            $('#username').after('<span id="error-msg">invalid username.</span>');
             return false;
         }
+    if(!pattern2.test(username))
+    {
+            $('#username').after('<span id="error-msg">Your username must contain numbers.</span>');
+            return false;
+    }
     return true;
 }
 function checkNames(){
@@ -187,7 +193,6 @@ function sendJSON(){
             var responseObj = JSON.parse(this.responseText)
             token = responseObj.token;
             localStorage.setItem("token", token);
-            
             window.location.replace("/Home.html")
             return true;
 
