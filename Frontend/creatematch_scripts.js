@@ -33,14 +33,10 @@ function sendJSON(){
     let referee = document.querySelector('#selType3');
     let linesman1 = document.querySelector('#selType4');
     let linesman2 = document.querySelector('#selType5');
-    alert('team1');
 
-    
-/*
-       
     // Creating a XHR object 
     let xhr = new XMLHttpRequest(); 
-    let url = "http://localhost:8080/accounts/signin"; 
+    let url = "http://localhost:8080/manager/addMatch"; 
 
     // open a connection 
     xhr.open("POST", url, true); 
@@ -52,41 +48,25 @@ function sendJSON(){
     // Create a state change callback 
     xhr.onreadystatechange = function () { 
         if (xhr.readyState === 4 && xhr.status === 200) { 
-
+            alert('here2');
             // Print received data from server            
             var responseObj = JSON.parse(this.responseText)
             token = responseObj.token;
             localStorage.setItem("token", token);
-
             window.location.replace("/Home.html");
             return true;
 
         }
         else if(xhr.readyState === 4 && xhr.status !== 200)
         {
+            alert('here3');
             var responseObj = JSON.parse(this.responseText)
             message = responseObj.msg;
-
-            if(message = "UserNotFound")
-            {
-                // Do some logic ya Hamda
-                alert(message)
-            }
-            else if (message = "IncorrectPassword")
-            {
-                // Do some logic ya Hamda
-                alert(message)
-
-            }
-            else
-            {
-                // Not Valid ( ex: username mafhosh number, password mafhosh Capital)
-            }
+            console.log(message);
             return false;
         }
     };
 
-    var data = JSON.stringify({ "Username": username.value, "Password":password.value});
-
-    xhr.send(data);*/
+    var data = JSON.stringify({ "HomeTeam": team1.value, "AwayTeam":team2.value,"MatchVenue":stadium.value,"Date":date.value,"MainReferee":referee.value,"LinemanOne":linesman1.value,"LinemanTwo":linesman2.value});
+    xhr.send(data);
 } 
