@@ -129,7 +129,6 @@ function validateUser (user) {
     Role: Joi.string(),
     Gender: Joi.string(),
     Address: Joi.string()
-
   }
 
   return Joi.validate(user, schema)

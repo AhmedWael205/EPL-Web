@@ -193,6 +193,10 @@ function sendJSON(){
             var responseObj = JSON.parse(this.responseText)
             token = responseObj.token;
             localStorage.setItem("token", token);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea4307dd9033c582501a4d6fecd99343ef5f26b0
             window.location.replace("/Home.html")
             return true;
 

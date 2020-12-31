@@ -46,10 +46,13 @@ function sendJSON(){
             if(message = "UserNotFound")
             {
                 // Do some logic ya Hamda
+                alert(message)
             }
             else if (message = "IncorrectPassword")
             {
                 // Do some logic ya Hamda
+                alert(message)
+
             }
             else
             {
