@@ -42,7 +42,9 @@ function sendJSON(){
     xhr.open("POST", url, true); 
 
     // Set the request header i.e. which type of content you are sending 
+    var token = localStorage.getItem("token");
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("token", token);
 
 
     // Create a state change callback 
@@ -51,8 +53,6 @@ function sendJSON(){
             alert('here2');
             // Print received data from server            
             var responseObj = JSON.parse(this.responseText)
-            token = responseObj.token;
-            localStorage.setItem("token", token);
             window.location.replace("/Home.html");
             return true;
 
