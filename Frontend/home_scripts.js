@@ -20,6 +20,7 @@ $(document).ready(function(){
 
 function sendJSON(){ 
 
+
   // Creating a XHR object 
   let xhr = new XMLHttpRequest(); 
   let url = "http://localhost:8080/home"; 
@@ -54,10 +55,27 @@ function sendJSON(){
           }
           else if(Role == "Manager")
           {
+            $('#logout').show();
+            $('#login').hide();
+            $('#signup').hide();
+            $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
+            $('#home').after('<a id="addmatch" href="/creatematch.html"> Add a new match </a>');
             // Show Manager features
+            $('#logout').on('click',function(){
+              localStorage.removeItem("token");
+              $('#logout').hide();
+              $('#login').show();
+              $('#signup').show();
+              $('#hello').hide();
+              window.location.replace("/Home.html");
+            });
+
           }
           else
           {
+           
+            //$('#navbar2').show();
+            //$('#page1').page();
             // Show Fan Features
           }
           return true;
@@ -77,6 +95,4 @@ function sendJSON(){
 
 // Hamada Lw howa user a3melo button logout we a3mel uncomment le dh
 
-// $('#logout').onclick(function(){
-//   localStorage.removeItem("token");
-// })
+

@@ -1,18 +1,42 @@
 $(document).ready(function(){
     $('#submit').click(function () {
+        $("span").remove("#error-msg");
+        if(!validateTeams()){
+            return false;
+        }
         $("#Submitform").submit(function(event) {
             // Prevent the form from submitting via the browser.
             event.preventDefault();
             sendJSON();
         })
+      
     });
 })
 
+function validateTeams(){
+    var team1=$('#selType').val();
+    var team2=$('#selType2').val();
+    if(team1==team2){
+        $("#selType2").after('<span id="error-msg">Home and Away teams can not be the same</span>');
+        return false;
+    }
+    return true;
+}
+
+
 function sendJSON(){ 
                
-    let username = document.querySelector('#username'); 
-    let password = document.querySelector('#password'); 
+    let team1 = document.querySelector('#selType'); 
+    let team2 = document.querySelector('#selType2'); 
+    let date = document.querySelector('#birthdaytime');
+    let stadium = document.querySelector('#stadium');
+    let referee = document.querySelector('#selType3');
+    let linesman1 = document.querySelector('#selType4');
+    let linesman2 = document.querySelector('#selType5');
+    alert('team1');
 
+    
+/*
        
     // Creating a XHR object 
     let xhr = new XMLHttpRequest(); 
@@ -64,5 +88,5 @@ function sendJSON(){
 
     var data = JSON.stringify({ "Username": username.value, "Password":password.value});
 
-    xhr.send(data);
+    xhr.send(data);*/
 } 

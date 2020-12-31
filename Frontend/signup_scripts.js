@@ -95,16 +95,16 @@ function checkPassword(){
 
 
 
-function finalize(){
+/*function finalize(){
     var name=$("#username").val().toUpperCase();
     console.log($('#selType').val());
     if ($('#selType').val() == "Manager")
     {   
-        /*var newWindow=window.open("","_blank");
-        newWindow.document.write("HELLO,"+name+"\nYou are successfuly registered as a Manager");*/
+        var newWindow=window.open("","_blank");
+        newWindow.document.write("HELLO,"+name+"\nYou are successfuly registered as a Manager");
         return true;
     }
-    /*else{
+    else{
         var id = prompt("Enter your teaching ID",0);
             if(id!=null && id!='')
             {
@@ -112,10 +112,10 @@ function finalize(){
                newWindow.document.write("Hello,<b> " +name+"</b><br> You are successfully registered as : <b>"+$('#selType').val()+"</b><br>Teaching ID = <b>",+id,"</b>");
             //newWindow.opener.document.write("Hello");
                 return true;
-            }*/
+            }
    // }
     return false;
-}
+}*/
 $(document).ready(function(){
    
     $('#submit').click(function () {
@@ -144,10 +144,10 @@ $(document).ready(function(){
             if(!checkEmail()){
                 return false;
             }
-            if(!finalize())
+            /*if(!finalize())
             {
                 return false;
-            }
+            }*/
 
             $("#Submitform").submit(function(event) {
                 // Prevent the form from submitting via the browser.
