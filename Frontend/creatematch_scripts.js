@@ -33,7 +33,7 @@ function sendJSON(){
     let referee = document.querySelector('#selType3');
     let linesman1 = document.querySelector('#selType4');
     let linesman2 = document.querySelector('#selType5');
-
+    alert(date.value);
     // Creating a XHR object 
     let xhr = new XMLHttpRequest(); 
     let url = "http://localhost:8080/manager/addMatch"; 
