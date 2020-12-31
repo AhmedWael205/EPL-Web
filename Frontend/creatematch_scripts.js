@@ -33,7 +33,8 @@ function sendJSON(){
     let referee = document.querySelector('#selType3');
     let linesman1 = document.querySelector('#selType4');
     let linesman2 = document.querySelector('#selType5');
-    alert(date.value);
+    var matchTime = date.value+":00.000+00:00"
+    alert(matchTime);
     // Creating a XHR object 
     let xhr = new XMLHttpRequest(); 
     let url = "http://localhost:8080/manager/addMatch"; 
@@ -67,6 +68,6 @@ function sendJSON(){
         }
     };
 
-    var data = JSON.stringify({ "HomeTeam": team1.value, "AwayTeam":team2.value,"MatchVenue":stadium.value,"Date":date.value,"MainReferee":referee.value,"LinemanOne":linesman1.value,"LinemanTwo":linesman2.value});
+    var data = JSON.stringify({ "HomeTeam": team1.value, "AwayTeam":team2.value,"MatchVenue":stadium.value,"Date":matchTime,"MainReferee":referee.value,"LinemanOne":linesman1.value,"LinemanTwo":linesman2.value});
     xhr.send(data);
 } 
