@@ -34,7 +34,7 @@ function sendJSON(){
             token = responseObj.token;
             localStorage.setItem("token", token);
 
-            window.location.replace("http://127.0.0.1:5500/Home.html")
+            window.location.replace("/Home.html")
             return true;
 
         }
@@ -46,10 +46,13 @@ function sendJSON(){
             if(message = "UserNotFound")
             {
                 // Do some logic ya Hamda
+                alert(message)
             }
             else if (message = "IncorrectPassword")
             {
                 // Do some logic ya Hamda
+                alert(message)
+
             }
             else
             {
