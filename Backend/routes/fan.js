@@ -106,25 +106,34 @@ router.put('/reserveMatch', auth,async (req, res) => {
 
     if(timeDifference<0) return res.status(404).send({ msg: 'You cant reserve a match with starting date in the past'})
 
-    var dim = [SeatStatus.length, SeatStatus[0].length];
+    var dim = [match.SeatStatus.length, match.SeatStatus[0].length];
     if(req.body.row >= dim[0] || req.body.column >= dim[1]) return res.status(404).send({ msg: 'Seat Index Doesnt Exist'})
 
     if(match.SeatStatus[req.body.row][req.body.column]) return res.status(404).send({ msg: 'Seat already Reserved'})
 
     let row = req.body.row
     let column = req.body.column
-    let ticket = { id:new mongoose.Types.ObjectId(), matchID: match._id, row: row, column: column };
+    let ticket = { _id:new mongoose.Types.ObjectId(), matchID: match._id, row: row, column: column };
+    let Index = 'SeatStatus.'+String(row)+'.'+String(column)
 
     try{
         new Fawn.Task()
-          .update('matches',{_id:match._id},{$set: {'SeatStatus.row.column' : 1},$inc:{Reserved:1},$inc:{Vacant:-1}})
-          .update('users',{_id:user._id},{ $push: {ReservedTickets:ticket}})
+          .update('matches',{_id:new mongoose.Types.ObjectId(match._id)},{$inc: { [Index] : 1,'Vacant':-1, 'Reserved':1}})
+          .update('users',{_id:new mongoose.Types.ObjectId(user._id)},{ $push: {'ReservedTickets':ticket}})
           .run()
     }
     catch(ex) {
         res.status(500).send('Failed to Reserve')
     }
+
     
+    // const updatedMatch = await Match.findOneAndUpdate({_id:new mongoose.Types.ObjectId(match._id)},
+    // {$inc: { [Index] : 1,'Vacant':-1, 'Reserved':1}}, { new: true })
+    // console.log(updatedMatch)
+
+    // const updatedUser = await User.findOneAndUpdate({_id:new mongoose.Types.ObjectId(user._id)},{ $push: {'ReservedTickets':ticket}}, { new: true })
+    // console.log(updatedUser)
+    return res.send(ticket)
 })
 
 module.exports = router
