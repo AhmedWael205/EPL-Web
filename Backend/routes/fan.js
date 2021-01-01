@@ -111,9 +111,16 @@ router.put('/reserveMatch', auth,async (req, res) => {
 
     if(match.SeatStatus[req.body.row][req.body.column]) return res.status(404).send({ msg: 'Seat already Reserved'})
 
+    for (const ticket of user.ReservedTickets){
+        timeDifference = Math.abs(new Date(ticket.Date) - new Date(match.Date))
+        let differentHours = (timeDifference / (1000 * 3600));
+        if(String(match._id) !== String(ticket.matchID) && differentHours < 2) return res.status(404).send({ msg: 'This match is clashing with another reserved match'})
+    }
+
     let row = req.body.row
     let column = req.body.column
-    let ticket = { _id:new mongoose.Types.ObjectId(), matchID: match._id, row: row, column: column };
+    let ticket = { _id:new mongoose.Types.ObjectId(), matchID: match._id,HomeTeam:match.HomeTeam 
+        , AwayTeam:match.AwayTeam, Date:match.Date,row: row, column: column };
     let Index = 'SeatStatus.'+String(row)+'.'+String(column)
 
     try{
@@ -134,6 +141,15 @@ router.put('/reserveMatch', auth,async (req, res) => {
     // const updatedUser = await User.findOneAndUpdate({_id:new mongoose.Types.ObjectId(user._id)},{ $push: {'ReservedTickets':ticket}}, { new: true })
     // console.log(updatedUser)
     return res.send(ticket)
+})
+
+router.get('/ReservedTickets', auth,async (req, res) => {
+    
+    let user = await User.findOne({ Username: req.user.Username })
+    if (!user) return res.status(404).send({ msg: 'UserNotFound' })
+    if (user.Role != "Fan") res.status(403).send({ msg: 'Not an Fan' })
+    
+    return res.send(_.pick(user, ['ReservedTickets']))
 })
 
 module.exports = router

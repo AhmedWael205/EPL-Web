@@ -72,8 +72,33 @@ const userSchema = new mongoose.Schema({
   Verified: { type: Boolean, default: false },
   ReservedTickets: [{
     type: new mongoose.Schema({
-      id:mongoose.Schema.Types.ObjectId,
+      id: mongoose.Schema.Types.ObjectId,
       matchID: mongoose.Schema.Types.ObjectId,
+      HomeTeam: {
+        type: String,
+        enum: ['Arsenal',	'Fulham', 'Sheffield United', 'Aston Villa'
+        , 'Leeds United', 'Southampton', 'Leicester City', 'Tottenham'
+        , 'Burnley', 'Liverpool', 'West Bromwich', 'Chelsea'
+        , 'Manchester City', 'WestHam United', 'Crystal Palace'
+        , 'Manchester United', 'Everton', 'Newcastle United']
+      },
+      AwayTeam: {
+        type: String,
+        enum: ['Arsenal',	'Fulham', 'Sheffield United', 'Aston Villa'
+        , 'Leeds United', 'Southampton', 'Leicester City', 'Tottenham'
+        , 'Burnley', 'Liverpool', 'West Bromwich', 'Chelsea'
+        , 'Manchester City', 'WestHam United', 'Crystal Palace'
+        , 'Manchester United', 'Everton', 'Newcastle United'],
+        validate: {
+          validator: function() {
+            if (this.AwayTeam === this.HomeTeam) {
+              return false;
+            }
+          },
+          message: props => "Home Team and Away Team can't be the same"
+        }
+      },
+      Date:Date,
       row: Number,
       column: Number
     })
