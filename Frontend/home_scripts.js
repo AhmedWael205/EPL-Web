@@ -56,7 +56,8 @@ function sendJSON(){
             $('#login').hide();
             $('#signup').hide();
             $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
-            $('#home').after('<a id="addmatch" href="/approveusers.html"> Approve users </a>');
+            $('#home').after('<a id="adduser" href="/approveusers.html"> Approve users </a>');
+            $('#home').after('<a id="removeuser" href="/removeusers.html"> Remove users </a>');
             $('#viewmatch').hide();
             //$('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');            // Show Admin features
             $('#logout').on('click',function(){

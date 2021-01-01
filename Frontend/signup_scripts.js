@@ -153,6 +153,7 @@ $(document).ready(function(){
                 // Prevent the form from submitting via the browser.
                 event.preventDefault();
                 sendJSON();
+                validator.resetForm();
             })
             return true; 
             }
@@ -208,12 +209,13 @@ function sendJSON(){
 
             if(message = "Username already registered.")
             {
-                // Do some logic ya Hamda
+                $('#username').after('<span id="error-msg">Username already exists.</span>');
             }
+            
             return false;
         }
     };
-
+    
     var data = JSON.stringify({ "Username": username.value, "Email": email.value, "Password":password.value
     , "Firstname":firstname.value, "Lastname":lastname.value,"Birthdate":birth_date.value,
     "City":city.value, "Address":address.value,"Role":account_type.value,"Gender":gender.value
