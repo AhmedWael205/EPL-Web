@@ -8,7 +8,7 @@ let xhr = new XMLHttpRequest();
 let url = "http://localhost:8080/admin/remove/"+username;
 
 // open a connection 
-xhr.open("DEL", url, true); 
+xhr.open("DELETE", url, true); 
 
 var token = localStorage.getItem("token");
 if(!token){
