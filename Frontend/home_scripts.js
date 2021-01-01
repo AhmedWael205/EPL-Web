@@ -52,6 +52,21 @@ function sendJSON(){
           if(Role == "Admin")
           {
             // Show verify , remove users
+            $('#logout').show();
+            $('#login').hide();
+            $('#signup').hide();
+            $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
+            $('#home').after('<a id="addmatch" href="/approveusers.html"> Approve users </a>');
+            $('#viewmatch').hide();
+            //$('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');            // Show Admin features
+            $('#logout').on('click',function(){
+              localStorage.removeItem("token");
+              $('#logout').hide();
+              $('#login').show();
+              $('#signup').show();
+              $('#hello').hide();
+              window.location.replace("/Home.html");
+            });
           }
           else if(Role == "Manager")
           {
@@ -60,6 +75,7 @@ function sendJSON(){
             $('#signup').hide();
             $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
             $('#home').after('<a id="addmatch" href="/creatematch.html"> Add a new match </a>');
+            $('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');
             // Show Manager features
             $('#logout').on('click',function(){
               localStorage.removeItem("token");
