@@ -136,7 +136,7 @@ function validateUser (user) {
       .email(),
     Password: Joi.string()
       .min(8)
-      .max(25)
+      .max(1024)
       .regex(new RegExp(".*[0-9]+.*"))
       .regex(new RegExp(".*[A-Z]+.*"))
       .required(),

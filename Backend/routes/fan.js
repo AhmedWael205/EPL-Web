@@ -27,20 +27,24 @@ router.put('/editData',auth,async (req, res) => {
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
     if (user.Role != "Fan") res.status(403).send({ msg: 'Not a Fan' })
 
- 
-    const Username = user.Username
-    const Email = user.Email
     var Password = user.Password
-    const validPassword = await bcrypt.compare(req.body.OldPassword, user.Password)
-    if (!validPassword) return res.status(404).send({ msg: 'IncorrectPassword' })
-    else {
-        if (req.body.NewPassword)
-        {
-            const salt = await bcrypt.genSalt(10)
-            Password = await bcrypt.hash(req.body.NewPassword, salt)
+    if(req.body.Password) {
+        const validPassword = await bcrypt.compare(req.body.Password, user.Password)
+        if (!validPassword) return res.status(404).send({ msg: 'Incorrect Password' })
+        else {
+            if (req.body.NewPassword)
+            {
+                const salt = await bcrypt.genSalt(10)
+                Password = await bcrypt.hash(req.body.NewPassword, salt)
+            }
         }
+    } else {
+        return res.status(404).send({ msg: 'You need to write your Password to edit your Data' })
     }
 
+    const Username = user.Username
+    const Email = user.Email
+    const Role = user.Role
     const Firstname = req.body.Firstname || user.Firstname
     const Lastname = req.body.Lastname || user.Lastname
     const Gender = req.body.Gender || user.Gender
@@ -49,7 +53,7 @@ router.put('/editData',auth,async (req, res) => {
     const Address = req.body.Address || user.Address
 
 
-    const newUser = new User({
+    let newUser = new User({
         'Username': Username,
         'Email': Email,
         'Password': Password,
@@ -58,7 +62,8 @@ router.put('/editData',auth,async (req, res) => {
         'Firstname': Firstname,
         'Lastname': Lastname,
         'Gender': Gender,
-        'Birthdate': Birthdate
+        'Birthdate': Birthdate,
+        'Role':Role
     })
 
     // newUser.validate(function(err) {
@@ -69,7 +74,7 @@ router.put('/editData',auth,async (req, res) => {
     if(!!err) return res.status(400).send({ msg: err.message })
 
     newUser = _.pick(newUser, ['Username', 'Email', 'Password', 'City',
-    'Address', 'Firstname', 'Lastname', 'Gender', 'Birthdate'])
+    'Address', 'Firstname', 'Lastname', 'Gender', 'Birthdate','Role'])
 
     const { error } = validateSignUp(newUser)
     if (error) return res.status(400).send({ msg: error.details[0].message })
@@ -77,8 +82,6 @@ router.put('/editData',auth,async (req, res) => {
     const updatedUser = await User.findOneAndUpdate({ Username: req.user.Username},
         { $set:
           {
-            Username: Username,
-            Email: Email,
             Password: Password,
             City: City,
             Address: Address,
@@ -151,5 +154,34 @@ router.get('/ReservedTickets', auth,async (req, res) => {
     
     return res.send(_.pick(user, ['ReservedTickets']))
 })
+
+router.delete('/cancelReservation/:id', auth,async (req, res) => {
+    
+    let user = await User.findOne({ Username: req.user.Username })
+    if (!user) return res.status(404).send({ msg: 'UserNotFound' })
+    if (user.Role != "Fan") res.status(403).send({ msg: 'Not an Fan' })
+
+          .update('matches',{_id:new mongoose.Types.ObjectId(matchID)},{$inc: { [Index] : -1,'Vacant':1, 'Reserved': -1}})
+    let ticket = await User.findOne({ Username: req.user.Username, ReservedTickets:{$elemMatch: { _id: new mongoose.Types.ObjectId(req.params.id) }}})
+    if (!ticket) return res.status(404).send({ msg: 'Ticket Not Found' })
+    var result = ticket.ReservedTickets.filter(obj => { return String(obj._id) === String(req.params.id) })
+    ticket = result[0]
+    let matchID = ticket.matchID
+    let row = ticket.row
+    let column = ticket.column
+    let Index = 'SeatStatus.'+String(row)+'.'+String(column)
+
+    try{
+        new Fawn.Task()
+          .update('matches',{_id:new mongoose.Types.ObjectId(matchID)},{$inc: { [Index] : -1,'Vacant':1, 'Reserved': -1}})
+          .update('users',{_id:new mongoose.Types.ObjectId(user._id)}, { $pull: { 'ReservedTickets': { '_id': new mongoose.Types.ObjectId(ticket._id) } } })
+          .run()
+    }
+    catch(ex) {
+        res.status(500).send('Failed to Cancel Reservation')
+    }
+    return res.send(ticket)
+})
+
 
 module.exports = router
