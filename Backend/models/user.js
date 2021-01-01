@@ -70,8 +70,14 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   Verified: { type: Boolean, default: false },
-
-  // TODO ADD Reserived matches, Tickets
+  ReservedTickets: [{
+    type: new mongoose.Schema({
+      id:mongoose.Schema.Types.ObjectId,
+      matchID: mongoose.Schema.Types.ObjectId,
+      row: Number,
+      column: Number
+    })
+  }]
   
 })
 

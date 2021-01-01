@@ -1,7 +1,6 @@
 const Joi = require('joi')
 const mongoose = require('mongoose')
 
-
 const matchSchema = new mongoose.Schema({
     HomeTeam: {
       type: String,
@@ -61,7 +60,9 @@ const matchSchema = new mongoose.Schema({
       minlength: 3,
       maxlength: 25
     },
-    SeatStatus: [[Number]]
+    SeatStatus: [[Number]],
+    Vacant: Number,
+    Reserved: Number
 })
 
 const Match = mongoose.model('matches', matchSchema)
