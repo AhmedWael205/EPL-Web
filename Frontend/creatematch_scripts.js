@@ -34,7 +34,6 @@ function sendJSON(){
     let linesman1 = document.querySelector('#selType4');
     let linesman2 = document.querySelector('#selType5');
     var matchTime = date.value+":00.000+00:00"
-    alert(matchTime);
     // Creating a XHR object 
     let xhr = new XMLHttpRequest(); 
     let url = "http://localhost:8080/manager/addMatch"; 
@@ -51,7 +50,7 @@ function sendJSON(){
     // Create a state change callback 
     xhr.onreadystatechange = function () { 
         if (xhr.readyState === 4 && xhr.status === 200) { 
-            alert('here2');
+           
             // Print received data from server            
             var responseObj = JSON.parse(this.responseText)
             window.location.replace("/Home.html");
@@ -60,7 +59,7 @@ function sendJSON(){
         }
         else if(xhr.readyState === 4 && xhr.status !== 200)
         {
-            alert('here3');
+            
             var responseObj = JSON.parse(this.responseText)
             message = responseObj.msg;
             console.log(message);
