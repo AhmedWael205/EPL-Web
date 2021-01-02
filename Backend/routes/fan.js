@@ -166,6 +166,13 @@ router.delete('/cancelReservation/:id', auth,async (req, res) => {
     if (!ticket) return res.status(404).send({ msg: 'Ticket Not Found' })
     var result = ticket.ReservedTickets.filter(obj => { return String(obj._id) === String(req.params.id) })
     ticket = result[0]
+    let date_ob = new Date();
+    let timeDifference = (new Date(ticket.Date) - date_ob )
+    if(timeDifference<0) return res.status(404).send({ msg: 'You cant cancel the reservation of a played match'})
+    
+    let differentDays = (timeDifference / (1000 * 3600 * 24));
+
+    if(differentDays<3) return res.status(404).send({ msg: 'You can only cancel a reservation if the starting date is after 3 days'})
     let matchID = ticket.matchID
     let row = ticket.row
     let column = ticket.column
