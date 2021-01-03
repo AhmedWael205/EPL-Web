@@ -3,7 +3,6 @@ $(document).ready(function(){
     sendJSON();
 })
 function Confirm(Object,pass){ 
-    alert('herer');
     let xhr2 = new XMLHttpRequest(); 
     let url = "http://localhost:8080/fan/editData"; 
     xhr2.open("PUT", url, true); 
@@ -22,6 +21,7 @@ function Confirm(Object,pass){
     ,"Birthdate":Object.Birthdate, "Password":pass,"NewPassword":null, 
     "City":Object.City, "Address":Object.Address
     });
+
     xhr2.onreadystatechange = function () { 
         //alert(xhr.readyState);
         //alert(xhr.status);
@@ -29,16 +29,19 @@ function Confirm(Object,pass){
             alert('here2');
             // Print received data from server            
             var responseObj = JSON.parse(this.responseText);
+            alert(this.responseText)
             return true;
 
         }
         else if(xhr2.readyState === 4 && xhr2.status !== 200)
         {
             alert('here3');
-            
+            var responseObj = JSON.parse(this.responseText);
+            alert(responseObj.msg)
             return false;
         }
     };
+
     xhr2.send(data);
 }
     
@@ -85,8 +88,11 @@ function sendJSON(){
            
             
             
-            $(':button').on('click',function(){
-
+            $(':button').on('click',function(e){
+                    $("#Submitform").submit(function(event) {
+                        // Prevent the form from submitting via the browser.
+                        event.preventDefault();
+                    })
                     responseObj.Firstname = $('#firstname').val(); 
                     responseObj.Lastname = $('#lastname').val(); 
                     responseObj.City = $('#city').val(); 
