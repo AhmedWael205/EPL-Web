@@ -1,0 +1,36 @@
+<html lang="en" dir="ltr">
+  <head >
+    <title>Stadium</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="resMatch_script.js"></script>
+    <link rel="stylesheet" href="resMatch_style.css">
+    <meta charset="utf-8">
+    <style>
+        body{
+            background-image: url('/assets/imgs/bg.jpg');
+          
+            min-height: 380px;
+          
+            /* Center and scale the image*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;  
+          }
+    </style>
+</head>
+
+<body>
+    <body >
+        
+        <div id="divtable">
+            <select id="selType" name="matches" style="margin: 20px; margin-left: 255px;" onchange="buildstad()">
+            </select>
+            <table id="seats">
+
+            </table>
+            <br/>
+            <button onclick="updateTextArea()" style="margin: 20px; margin-left: 280px;">Confirm Selection</button>
+        </div>        
+</body>
+</html>

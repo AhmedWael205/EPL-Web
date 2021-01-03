@@ -77,6 +77,13 @@ function sendJSON(){
             $('#home').before('<a id="hello"style="background-color:black;"> Hello,'+username+'</a>');
             $('#home').after('<a class="btn" id="addmatch" href="/creatematch.html"> Add a new match  <i class="fa fa-plus"></a>');
             $('#addmatch').after('<a class="btn" id="editmatch" href="/editmatch.html"> Edit matches <i class="fa fa-edit"></a>');
+            $('#editmatch').after('<a class="btn" id="addstadium" href="/addstad.html"> Add Stadium <i class="fa fa-edit"></a>');
+            $('#addstadium').after('<a class="btn" id="resmatch" href="/resMatch.html"> Reserve Tickets <i class="fa fa-edit"></a>');
+            //$('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
+            //$('#home').after('<a id="addmatch" href="/creatematch.html"> Add a new match </a>');
+            //$('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');
+            //$('#editmatch').after('<a id="addstadium" href="/addstad.html"> Add Stadium </a>');
+            //$('#addstadium').after('<a id="resmatch" href="/resMatch.html"> Reserve Tickets </a>');
             // Show Manager features
             $('#logout').on('click',function(){
               localStorage.removeItem("token");

@@ -1,0 +1,41 @@
+<html lang="en" dir="ltr">
+  <head >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="addstad_scripts.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Add a Stadium</title>
+    <meta charset="utf-8">
+    <style>
+      body{
+        background-image: url('/assets/imgs/bg.jpg');
+      
+        min-height: 380px;
+      
+        /* Center and scale the image*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;  
+      }
+    </style>
+
+    </head>
+<body>
+    <div style="border-style: solid;margin:auto;width: 750px;background-color: white;" >
+        <form id="Submitform" style="margin: 30px;">
+        <h1>
+            Add A Stadium
+        </h1>
+    
+    
+        <label>Stadium Name</label> <input class="inputform" type="text" id="stadname" name="stadname"> <br> <br>
+        <label>N. of Rows</label> <input class="inputform"  type="text" id="nrows" name="nrows"><br> <br>
+        <label>N. of Seats per Row</label> <input class="inputform" type="text" id="nseats" name="nseats"><br> <br>
+       
+
+        <br> <br>
+        <input id="submit" type="submit" value="submit">
+        </form>
+</div>  
+</body>
+</html>
