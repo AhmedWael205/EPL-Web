@@ -2,7 +2,10 @@ $(document).ready(function(){
     $("span").remove("#error-msg");
     sendJSON();
 })
-function Confirm(Object,pass){ 
+function Confirm(Object,pass,newpw){
+    if(newpw==""){
+        newpw=null;
+    } 
     let xhr2 = new XMLHttpRequest(); 
     let url = "http://localhost:8080/fan/editData"; 
     xhr2.open("PUT", url, true); 
@@ -18,7 +21,7 @@ function Confirm(Object,pass){
     
     
     var data = JSON.stringify({ "Firstname":Object.Firstname, "Lastname":Object.Lastname,"Gender":Object.Gender
-    ,"Birthdate":Object.Birthdate, "Password":pass,"NewPassword":null, 
+    ,"Birthdate":Object.Birthdate, "Password":pass,"NewPassword":newpw, 
     "City":Object.City, "Address":Object.Address
     });
 
@@ -26,22 +29,25 @@ function Confirm(Object,pass){
         //alert(xhr.readyState);
         //alert(xhr.status);
         if (xhr2.readyState === 4 && xhr2.status === 200) { 
-            alert('here2');
+            //lert('here2');
             // Print received data from server            
             var responseObj = JSON.parse(this.responseText);
-            alert(this.responseText)
+            //alert(this.responseText)
+            window.location.reload();
             return true;
 
         }
         else if(xhr2.readyState === 4 && xhr2.status !== 200)
         {
-            alert('here3');
+            //alert('here3');
             var responseObj = JSON.parse(this.responseText);
-            alert(responseObj.msg)
+            $('#error-msg').addClass("error-text");
+            $('#error-msg').text(responseObj.msg);
+            $('#error-msg').show();
             return false;
         }
     };
-
+    //alert(data);
     xhr2.send(data);
 }
     
@@ -67,23 +73,33 @@ function sendJSON(){
             // Print received data from server            
             var responseObj = JSON.parse(this.responseText);
             var date= responseObj.Birthdate.substring(0,10);
-           // alert(responseObj.Birthdate);
-            //alert(responseObj.Firstname);
+            
+            
             
           
             var html='<label>First Name :</label> <input class="inputform" id="firstname"type="text" name="Firstname" value='+responseObj.Firstname+'> <br> <br>';
             html+='<label>Last Name :</label> <input class="inputform" id="lastname"type="text" name="Lastname" value='+responseObj.Lastname+'> <br><br>';
             html+='<label>Password :</label> <input class="inputform" id="password" type="password" name="Password" placeholder="write a new password here" ><br> <br>';
             html+='<label>Birthdate:</label><input class="inputform" id="age" type="date" name="Birthdate" value='+date+'><br><br>';
-            html+='<label>Gender:</label> <select class="inputform" id="selGender"name="Gender"><option value='+responseObj.Gender+'>Male</option><option value="Female">Female</option></select><br><br>';
+            html+='<label>Gender:</label> <select id="selGender" class="inputform"  name="Gender" ><option value="Male">Male</option><option value="Female">Female</option></select><br><br>';
+            
+    
             html+='<label>City:</label> <input class="inputform" id="city"type="text" name="City" value='+responseObj.City+'> <br> <br>';
-            html+='<label>Address:</label> <input class="inputform" id="address"type="text" name="Address" value='+responseObj.Address+'> <br> <br></br>'
+            html+='<label>Address:</label> <input class="inputform" id="address"type="text" name="Address" value='+responseObj.Address+'> <br> <br>'
             
             html+='<label>*Verify Password :</label> <input class="inputform" id="verPW"type="password" placeholder="write your password here" ><br> <br>';
+            
+            
+            html+='<span hidden style="float:left" class="error-message" id="error-msg" ></span><br><br><br>';
             html+='<button class="btn"><i class="fa fa-edit"></i> Confirm Edit</button>';
+            
             $('#Submitform').append(html);
             
-
+            if(responseObj.Gender=='Male'){
+            $("#selGender").val("Male");
+            }
+            else{
+            $("#selGender").val("Female");}
            
            
             
@@ -99,10 +115,11 @@ function sendJSON(){
                     responseObj.Address = $('#address').val(); 
                     responseObj.Gender = $('#selGender').val(); 
                     responseObj.Birthdate =$('#age').val();
-
+                    
+                    var newpw=$('#password').val();
                     var pw = $('#verPW').val();
                     //var newpw=$('password').val();
-                    Confirm(responseObj,pw); 
+                    Confirm(responseObj,pw,newpw); 
                     
                 });   
             return true;
