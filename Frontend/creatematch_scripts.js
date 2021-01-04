@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('#submit').click(function () {
-        $("span").remove("#error-msg");
+       
+        $("span").remove("#error-msg2");
         if(!validateTeams()){
             return false;
         }
@@ -17,7 +18,7 @@ function validateTeams(){
     var team1=$('#selType').val();
     var team2=$('#selType2').val();
     if(team1==team2){
-        $("#selType2").after('<span id="error-msg">Home and Away teams can not be the same</span>');
+        $("#selType2").after('<span id="error-msg2">Home and Away teams can not be the same</span>');
         return false;
     }
     return true;
@@ -63,7 +64,10 @@ function sendJSON(){
             
             var responseObj = JSON.parse(this.responseText)
             message = responseObj.msg;
-            alert(message); 
+            $('#error-msg').addClass("error-text");
+            $('#error-msg').text(message);
+            $('#error-msg').show();
+            //alert(message); 
             return false;
         }
     };
