@@ -2,14 +2,17 @@ $(document).ready(function(){
     $('#submit').click(function () {
        
         $("span").remove("#error-msg2");
-        if(!validateTeams()){
-            return false;
-        }
-        $("#Submitform").submit(function(event) {
-            // Prevent the form from submitting via the browser.
-            event.preventDefault();
-            sendJSON();
-        })
+            if(!validateTeams()){
+                return false;
+            }
+            $("#Submitform").submit(function(event) {
+                // Prevent the form from submitting via the browser.
+
+                event.preventDefault();
+                sendJSON();
+                validator.resetForm();
+            })
+        return true; 
       
     });
 })
