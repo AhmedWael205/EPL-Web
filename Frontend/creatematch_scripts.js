@@ -52,7 +52,8 @@ function sendJSON(){
         if (xhr.readyState === 4 && xhr.status === 200) { 
            
             // Print received data from server            
-            var responseObj = JSON.parse(this.responseText)
+            var responseObj = JSON.parse(this.responseText);
+            alert("Match added successfully"); 
             window.location.replace("/Home.html");
             return true;
 
@@ -62,7 +63,7 @@ function sendJSON(){
             
             var responseObj = JSON.parse(this.responseText)
             message = responseObj.msg;
-            console.log(message);
+            alert(message); 
             return false;
         }
     };

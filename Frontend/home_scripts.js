@@ -55,9 +55,9 @@ function sendJSON(){
             $('#logout').show();
             $('#login').hide();
             $('#signup').hide();
-            $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
-            $('#home').after('<a id="adduser" href="/approveusers.html"> Approve users </a>');
-            $('#home').after('<a id="removeuser" href="/removeusers.html"> Remove users </a>');
+            $('#home').before('<a id="hello"style="background-color:black;"> Hello,'+username+'</a>');
+            $('#home').after('<a class="btn" id="adduser" href="/approveusers.html"> Approve users <i class="fa fa-check"></a>'); 
+            $('#home').after('<a class="btn" id="removeuser" href="/removeusers.html"> Remove users  <i class="fa fa-remove"></a>');
             $('#viewmatch').hide();
             //$('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');            // Show Admin features
             $('#logout').on('click',function(){
@@ -74,9 +74,9 @@ function sendJSON(){
             $('#logout').show();
             $('#login').hide();
             $('#signup').hide();
-            $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
-            $('#home').after('<a id="addmatch" href="/creatematch.html"> Add a new match </a>');
-            $('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');
+            $('#home').before('<a id="hello"style="background-color:black;"> Hello,'+username+'</a>');
+            $('#home').after('<a class="btn" id="addmatch" href="/creatematch.html"> Add a new match  <i class="fa fa-plus"></a>');
+            $('#addmatch').after('<a class="btn" id="editmatch" href="/editmatch.html"> Edit matches <i class="fa fa-edit"></a>');
             // Show Manager features
             $('#logout').on('click',function(){
               localStorage.removeItem("token");
@@ -93,8 +93,8 @@ function sendJSON(){
             $('#logout').show();
             $('#login').hide();
             $('#signup').hide();
-            $('#home').before('<a id="hello"style="background-color:white;color: black;"> Hello,'+username+'</a>');
-            $('#home').after('<a id="editdata" href="/editdata.html"> Edit my profile </a>');
+            $('#home').before('<a style="background-color:black;"> Hello,'+username+'</a>');
+            $('#home').after('<a class="btn" id="editdata" href="/editdata.html"> Edit my profile <i class="fa fa-edit"></i></a>');
             //$('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');
             $('#logout').on('click',function(){
               localStorage.removeItem("token");
