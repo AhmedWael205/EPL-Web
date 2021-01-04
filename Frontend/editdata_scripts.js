@@ -3,44 +3,43 @@ $(document).ready(function(){
     sendJSON();
 })
 function Confirm(Object,pass){ 
-    // Creating a XHR object 
-    
-    let xhr = new XMLHttpRequest(); 
+    alert('herer');
+    let xhr2 = new XMLHttpRequest(); 
     let url = "http://localhost:8080/fan/editData"; 
+    xhr2.open("PUT", url, true); 
     
     // open a connection 
-    xhr.open("PUT", url, true); 
+    
     
     var token = localStorage.getItem("token");
-
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("token", token);
+    xhr2.setRequestHeader("token", token);
     
-    //alert(pass);
+    xhr2.setRequestHeader("Content-Type", "application/json");
+    
+    
+    
     var data = JSON.stringify({ "Firstname":Object.Firstname, "Lastname":Object.Lastname,"Gender":Object.Gender
-    ,"Birthdate":Object.Birthdate, "Password":pass, "NewPassword":null, 
+    ,"Birthdate":Object.Birthdate, "Password":pass,"NewPassword":null, 
     "City":Object.City, "Address":Object.Address
     });
-    //alert(data);
-    alert('here')
-    xhr.onreadystatechange = function () { 
-        if (xhr.readyState === 4 && xhr.status === 200) { 
+    xhr2.onreadystatechange = function () { 
+        //alert(xhr.readyState);
+        //alert(xhr.status);
+        if (xhr2.readyState === 4 && xhr2.status === 200) { 
             alert('here2');
             // Print received data from server            
-            var responseObj = JSON.parse(this.responseText)
-            token = responseObj.token;
+            var responseObj = JSON.parse(this.responseText);
             return true;
 
         }
-        else if(xhr.readyState === 4 && xhr.status !== 200)
+        else if(xhr2.readyState === 4 && xhr2.status !== 200)
         {
             alert('here3');
             
             return false;
         }
     };
-    alert('here4');
-    xhr.send(data);
+    xhr2.send(data);
 }
     
 
@@ -56,6 +55,7 @@ function sendJSON(){
     var token = localStorage.getItem("token");
 
     xhr.setRequestHeader("token", token);
+    xhr.setRequestHeader("Content-Type", "application/json");
     // DO some logic with These information ya Hamada
     
     xhr.onreadystatechange = function () { 
@@ -95,9 +95,10 @@ function sendJSON(){
                     responseObj.Birthdate =$('#age').val();
 
                     var pw = $('#verPW').val();
-                    Confirm(responseObj,pw);
+                    //var newpw=$('password').val();
+                    Confirm(responseObj,pw); 
                     
-                });
+                });   
             return true;
     
         }
@@ -108,7 +109,6 @@ function sendJSON(){
             return false;
         }
     };
-    
     xhr.send();
-    }
+}
     
