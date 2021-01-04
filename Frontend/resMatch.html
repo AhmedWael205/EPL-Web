@@ -24,13 +24,16 @@
     <body >
         
         <div id="divtable">
-            <select id="selType" name="matches" style="margin: 20px; margin-left: 255px;" onchange="buildstad()">
+
+            <select id="selType" name="matches" style="margin: 10px;" onchange="buildstad()">
+                <option disabled selected value> -- select a Match -- </option>
             </select>
+            
             <table id="seats">
 
             </table>
             <br/>
-            <button onclick="updateTextArea()" style="margin: 20px; margin-left: 280px;">Confirm Selection</button>
+            <button style="margin: 10px;" onclick="resTickets()" >Confirm Selection</button>
         </div>        
 </body>
 </html>
