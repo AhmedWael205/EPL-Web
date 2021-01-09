@@ -6,7 +6,7 @@ var responseObjmatches ;
 var responsobjseaststatus;
 var rows;
 var seats;
-var matchselcted;
+var matchselcted = -2;
 
 function sendJSON(){ 
     // Creating a XHR object 
@@ -51,12 +51,21 @@ function sendJSON(){
     }
     
 
-function buildstad(){
-
+function buildstad(number){
+    if(number == -2)
+    {
+        return false
+    }
+    else if(number != -1)
+    {
+        matchselcted = number
+    }else{
+        matchselcted = document.getElementById("selType").value;    
+    }
+    //document.getElementById("selType").value = matchselcted
     $('#seats').empty();
     $('#matchdetails').empty();
     $('#msg').empty();
-    matchselcted = document.getElementById("selType").value;
     var std='<td id="md">Teams</td><td id="md">Date</td><td id="md">Location</td>'
     $('#matchdetails').append('<tr>'+std+'</tr>');
     var d = new Date(responseObjmatches[matchselcted].Date);
@@ -151,7 +160,6 @@ function resTickets(){
     allSeatsSelected = allSeatsSelected.filter(function(item) {
     return !allSeatsReserved.includes(item); 
     })
-    alert(allSeatsSelected);
 
     for (i=0; i < allSeatsSelected.length;i++){
         // Creating a XHR object 
@@ -175,11 +183,10 @@ function resTickets(){
             //alert(xhr.readyState);
             //alert(xhr.status);
             if (xhr.readyState === 4 && xhr.status === 200) { 
-                // Print received data from server            
                 var responseObj = JSON.parse(this.responseText);
-                //alert(this.responseText)
-                window.location.reload();
-                
+                alert('You have succesfully booked tickets:'+msgstr); 
+                //window.location.reload();
+                buildstad(matchselcted)
                 return true;
 
             }
@@ -192,6 +199,8 @@ function resTickets(){
         };
 
         xhr.send(data);
-        alert('You have succesfully booked tickets:'+msgstr);  
+         
     }
 }
+
+setInterval(buildstad(matchselcted),1000);

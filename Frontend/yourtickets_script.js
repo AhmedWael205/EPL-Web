@@ -38,7 +38,7 @@ function sendJSON(){
                 std = '<td id="md">'+responseObjmatches.ReservedTickets[i].HomeTeam+' vs '+responseObjmatches.ReservedTickets[i].AwayTeam+'</td>';
                 std += '<td id="md">'+ d.toUTCString()+'</td>';
                 std += '<td id="md">'+String.fromCharCode(65+parseInt(responseObjmatches.ReservedTickets[i].column))+(parseInt(responseObjmatches.ReservedTickets[i].row)+1)+'</td>';
-                std += '<td id="md"><button value ='+responseObjmatches.ReservedTickets[i]._id+' onclick="cancelticket(this)">Cancel Ticket</button></td>';
+                std += '<td id="md"><button id='+String.fromCharCode(65+parseInt(responseObjmatches.ReservedTickets[i].column))+(parseInt(responseObjmatches.ReservedTickets[i].row)+1)+' value ='+responseObjmatches.ReservedTickets[i]._id+' onclick="cancelticket(this)">Cancel Ticket</button></td>';
                 
                 
                 $('#matchdetails').append('<tr>'+std+'</tr>');
@@ -53,8 +53,38 @@ function sendJSON(){
     };
     
     xhr.send();
-    }
+}
 
-    function cancelticket(objButton){
-        alert(objButton.value)
+function cancelticket(objButton){
+    
+    let xhr = new XMLHttpRequest(); 
+    let url = "http://localhost:8080/fan/cancelReservation/"+objButton.value;
+
+    // open a connection 
+    xhr.open("DELETE", url, true); 
+
+    var token = localStorage.getItem("token");
+    if(!token){
+    return false;
     }
+    xhr.setRequestHeader("token", token);
+    
+    xhr.onreadystatechange = function () { 
+    if (xhr.readyState === 4 && xhr.status === 200) { 
+
+        var responseObj = JSON.parse(this.responseText);
+        alert("You have succesfully cancelled ticket: "+ objButton.id)
+        sendJSON();
+    
+        return true;
+
+    }
+    else if(xhr.readyState === 4 && xhr.status !== 200)
+    {
+        alert('error');
+        return false;
+    }
+    };
+
+    xhr.send();
+}
