@@ -1,17 +1,14 @@
 <html lang="en" dir="ltr">
   <head >
-    <title>Reserve Tickets</title>
+    <title>Your Tickets</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="resMatch_script.js"></script>
+    <script src="yourtickets_script.js"></script>
     <link rel="stylesheet" href="resMatch_style.css">
     <meta charset="UTF-8">
     <style>
         body{
             background-image: url('/assets/imgs/bg.jpg');
-          
             min-height: 380px;
-          
-            /* Center and scale the image*/
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -24,21 +21,10 @@
     <body >
         
         <div id="divtable">
-
-            Select a Match<select id="selType" name="matches" style="margin: 10px;" onchange="buildstad()">
-                <option disabled selected value> -- select a Match -- </option>
-            </select>
-            <br/>
-            <table id="matchdetails" >
+            <table id="matchdetails" style="margin-top: 10px;" >
 
             </table>
             <br/>
-            <table id="seats">
-
-            </table>
-            <br/>
-            <button style="margin: 10px;" onclick="resTickets()" >Confirm Selection</button>
-
             <p id="msg"></p>
         </div>        
 </body>

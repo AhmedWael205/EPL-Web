@@ -32,12 +32,28 @@
   background-color:#ccc;
 }
 
-table
+table#seats
 {
   margin: auto;
   text-align:center; 
   width: auto;
-  
+}
+
+table#matchdetails
+{
+  width: auto;
+  margin: auto;
+  text-align:center;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+td#md 
+{
+  padding:5px;
+  text-align:center;
+  border-collapse: collapse;
+  border: 1px solid black;
 }
 
 div#divtable
