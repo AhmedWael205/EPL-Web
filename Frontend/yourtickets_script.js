@@ -27,6 +27,10 @@ function sendJSON(){
 
             var responseObjmatches = JSON.parse(this.responseText);
             
+            if(responseObjmatches.ReservedTickets.length == 0){
+                $('#msg').text("You have no tickets");
+                return true;
+            }
 
             var std='<td id="md">Teams</td><td id="md">Date</td><td id="md">Seat</td><td></td>'
             $('#matchdetails').append('<tr>'+std+'</tr>');
@@ -73,8 +77,9 @@ function cancelticket(objButton){
     if (xhr.readyState === 4 && xhr.status === 200) { 
 
         var responseObj = JSON.parse(this.responseText);
-        alert("You have succesfully cancelled ticket: "+ objButton.id)
         sendJSON();
+        alert("You have succesfully cancelled ticket: "+ objButton.id)
+        location.reload();
     
         return true;
 
