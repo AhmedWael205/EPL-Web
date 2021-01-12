@@ -4,6 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="resMatch_script.js"></script>
     <link rel="stylesheet" href="resMatch_style.css">
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <style>
         body{
@@ -37,9 +38,14 @@
 
             </table>
             <br/>
-            <button style="margin: 10px;" onclick="resTickets()" >Confirm Selection</button>
 
-            <p id="msg"></p>
+            Credit Card:<input style="margin-right: 20px;" id="crdnumber" type="text" name="crdnumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19">
+            CVV: <input  id="cvv" type="password" name="cvv" placeholder="xxx" maxlength="3">
+            <br>
+            <button class="btn" style="margin: 10px;" onclick="resTickets()" >Confirm Selection</button>
+            <br/><br/>
+            
+            <span hidden  class="error-message" id="error-msg" ></span> <br/><br/><br/>
         </div>        
 </body>
 </html>

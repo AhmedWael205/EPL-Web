@@ -60,7 +60,7 @@ function sendJSON(){
 }
 
 function cancelticket(objButton){
-    
+    $("span").hide("#error-msg");
     let xhr = new XMLHttpRequest(); 
     let url = "http://localhost:8080/fan/cancelReservation/"+objButton.value;
 
@@ -86,7 +86,10 @@ function cancelticket(objButton){
     }
     else if(xhr.readyState === 4 && xhr.status !== 200)
     {
-        alert('error');
+        var responseObj = JSON.parse(this.responseText);
+        $('#error-msg').addClass("error-text");
+        $('#error-msg').text(responseObj.msg);
+        $('#error-msg').show();
         return false;
     }
     };

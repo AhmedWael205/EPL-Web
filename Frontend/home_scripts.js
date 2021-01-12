@@ -77,8 +77,8 @@ function sendJSON(){
             $('#home').before('<a id="hello"style="background-color:black;"> Hello,'+username+'</a>');
             $('#home').after('<a class="btn" id="addmatch" href="/creatematch.html"> Add a new match  <i class="fa fa-plus"></a>');
             $('#addmatch').after('<a class="btn" id="editmatch" href="/editmatch.html"> Edit matches <i class="fa fa-edit"></a>');
-            $('#editmatch').after('<a class="btn" id="addstadium" href="/addstad.html"> Add Stadium <i class="fa fa-edit"></a>');
-            $('#addstadium').after('<a class="btn" id="seatstatus" href="/seatstatus.html"> View Seat Status <i class="fa fa-edit"></a>');
+            $('#editmatch').after('<a class="btn" id="addstadium" href="/addstad.html"> Add Stadium <i class="fa fa-plus"></a>');
+            $('#addstadium').after('<a class="btn" id="seatstatus" href="/seatstatus.html"> View Seat Status <i class="fa fa-th-list"></a>');
            
             // Show Manager features
             $('#logout').on('click',function(){
@@ -99,7 +99,7 @@ function sendJSON(){
             $('#home').before('<a style="background-color:black;"> Hello,'+username+'</a>');
             $('#home').after('<a class="btn" id="editdata" href="/editdata.html"> Edit my profile <i class="fa fa-edit"></i></a>');
             $('#editdata').after('<a class="btn" id="resmatch" href="/resMatch.html"> Reserve Tickets <i class="fa fa-edit"></a>');
-            $('#resmatch').after('<a class="btn" id="yourtickets" href="/yourtickets.html"> Your Tickets <i class="fa fa-edit"></a>');
+            $('#resmatch').after('<a class="btn" id="yourtickets" href="/yourtickets.html"> Your Tickets <i class="fa fa-th-list"></a>');
             //$('#addmatch').after('<a id="editmatch" href="/editmatch.html"> Edit matches </a>');
             $('#logout').on('click',function(){
               localStorage.removeItem("token");

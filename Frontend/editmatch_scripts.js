@@ -104,15 +104,17 @@ function sendJSON(){
                 var id=responseObj[index]._id;
                 //alert(responseObj[index].Date);
                 var date=responseObj[index].Date.substring(0,19);
-                var html='<label>Home Team</label ><select class="inputform" id="selType"name="HomeTeam"><option value="Arsenal">Arsenal</option><option value="Fulham">Fulham</option><option value="Sheffield United">Sheffield United</option><option value="Aston Villa">Aston Villa</option><option value="Leeds United">Leeds United</option><option value="Southampton">Southampton</option><option value="Leicester City">Leicester City</option><option value="Tottenham">Tottenham</option><option value="Burnley">Burnley</option><option value="Liverpool">Liverpool</option><option value="West Bromwich">West Bromwich</option><option value="Chelsea">Chelsea</option><option value="Manchester City">Manchester City</option><option value="WestHam United">WestHam United</option<option value="Crystal Palace">Crystal Palace</option><option value="Manchester United">Manchester United</option><option value="Everton">Everton</option><option value="Newcastle United">Newcastle United</option></select><br><br>';
-                html+='<label>Away Team</label ><select class="inputform" id="selType2"name="HomeTeam"><option value="Arsenal">Arsenal</option><option value="Fulham">Fulham</option><option value="Sheffield United">Sheffield United</option><option value="Aston Villa">Aston Villa</option><option value="Leeds United">Leeds United</option><option value="Southampton">Southampton</option><option value="Leicester City">Leicester City</option><option value="Tottenham">Tottenham</option><option value="Burnley">Burnley</option><option value="Liverpool">Liverpool</option><option value="West Bromwich">West Bromwich</option><option value="Chelsea">Chelsea</option><option value="Manchester City">Manchester City</option><option value="WestHam United">WestHam United</option<option value="Crystal Palace">Crystal Palace</option><option value="Manchester United">Manchester United</option><option value="Everton">Everton</option><option value="Newcastle United">Newcastle United</option></select><br><br>';
+                var html='<label>Home Team</label ><select class="inputform" id="selType1"name="HomeTeam"><option value="Arsenal">Arsenal</option><option value="Fulham">Fulham</option><option value="Sheffield United">Sheffield United</option><option value="Aston Villa">Aston Villa</option><option value="Leeds United">Leeds United</option><option value="Southampton">Southampton</option><option value="Leicester City">Leicester City</option><option value="Tottenham">Tottenham</option><option value="Burnley">Burnley</option><option value="Liverpool">Liverpool</option><option value="West Bromwich">West Bromwich</option><option value="Chelsea">Chelsea</option><option value="Manchester City">Manchester City</option><option value="WestHam United">WestHam United</option><option value="Crystal Palace">Crystal Palace</option><option value="Manchester United">Manchester United</option><option value="Everton">Everton</option><option value="Newcastle United">Newcastle United</option></select><br><br>';
+                html+='<label>Away Team</label ><select class="inputform" id="selType2"name="HomeTeam"><option value="Arsenal">Arsenal</option><option value="Fulham">Fulham</option><option value="Sheffield United">Sheffield United</option><option value="Aston Villa">Aston Villa</option><option value="Leeds United">Leeds United</option><option value="Southampton">Southampton</option><option value="Leicester City">Leicester City</option><option value="Tottenham">Tottenham</option><option value="Burnley">Burnley</option><option value="Liverpool">Liverpool</option><option value="West Bromwich">West Bromwich</option><option value="Chelsea">Chelsea</option><option value="Manchester City">Manchester City</option><option value="WestHam United">WestHam United</option><option value="Crystal Palace">Crystal Palace</option><option value="Manchester United">Manchester United</option><option value="Everton">Everton</option><option value="Newcastle United">Newcastle United</option></select><br><br>';
                 html+='<label for="birthdaytime">MatchTime(date and time):</label><input type="datetime-local" id="birthdaytime" name="birthdaytime" value='+date+'><br> <br>';
                 html+='<label>Main Referee</label> <input class="inputform" id="selType3"type="text" name="referee" value='+responseObj[index].MainReferee+'> <br> <br>';
                 html+='<label>LinesMan1</label> <input class="inputform" id="selType4"type="text" name="line1" value='+responseObj[index].LinemanOne+'> <br> <br>';
                 html+='<label>LinesMan2</label> <input class="inputform" id="selType5"type="text" name="line2" value='+responseObj[index].LinemanTwo+'> <br> <br>';
                 html+='<button id="confirmedit" class="btn"><i class="fa fa-edit"></i> Confirm Edit</button>';
                 $("#mydiv").append(html);
-                $("#selType").val(responseObj[index].HomeTeam);
+                
+                $("#selType1").val(responseObj[index].HomeTeam);
+
                 $("#selType2").val(responseObj[index].AwayTeam);
                // Edit(id);
                 $('#confirmedit').on('click',function(){
@@ -120,7 +122,7 @@ function sendJSON(){
                             // Prevent the form from submitting via the browser.
                             event.preventDefault();
                         })
-                        responseObj[index].HomeTeam=$('#selType').val(); 
+                        responseObj[index].HomeTeam=$('#selType1').val(); 
                         responseObj[index].AwayTeam=$('#selType2').val(); 
                         responseObj[index].Date=$('#birthdaytime').val(); 
                         responseObj[index].MainReferee=$('#selType3').val(); 

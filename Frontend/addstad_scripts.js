@@ -34,7 +34,6 @@ function sendJSON(){
         if (xhr.readyState === 4 && xhr.status === 200) { 
            
             // Print received data from server          
-            alert("da5al hena");  
             var responseObj = JSON.parse(this.responseText);
             window.location.replace("/Home.html");
             return true;
@@ -42,10 +41,10 @@ function sendJSON(){
         }
         else if(xhr.readyState === 4 && xhr.status !== 200)
         {
-            alert("da5al hena2");  
             var responseObj = JSON.parse(this.responseText)
-            message = responseObj.msg;
-            console.log(message);
+            $('#error-msg').addClass("error-text");
+            $('#error-msg').text(responseObj.msg);
+            $('#error-msg').show();
             return false;
         }
     };

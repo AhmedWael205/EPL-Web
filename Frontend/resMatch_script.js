@@ -8,6 +8,7 @@ var rows;
 var seats;
 var matchselcted = -2;
 var matchid = -1;
+var res;
 
 function sendJSON(){ 
     // Creating a XHR object 
@@ -54,13 +55,8 @@ function sendJSON(){
 
 function buildstad(){
     
-    // else if(number != -1)
-    // {
-    //     matchselcted = number
-    // }else{
-    //     matchselcted = document.getElementById("selType").value;    
-    // }
     matchselcted = document.getElementById("selType").value;
+    $("span").hide("#error-msg");
     $('#seats').empty();
     $('#matchdetails').empty();
     $('#msg').empty();
@@ -145,9 +141,21 @@ function buildstad(){
 }
 
 function resTickets(){
+
+    if($("#crdnumber").val().length != 19 || $("#cvv").val().length != 3){
+        console.log($("#crdnumber").val().length);
+        console.log($("#cvv").val().length)
+        $('#error-msg').addClass("error-text");
+        $('#error-msg').text("Please enter your credit card number and cvv");
+        $('#error-msg').show();
+        return;
+    }
+
+    $("span").hide("#error-msg");
     var allSeatsSelected = [];
     var allSeatsReserved = [];
-    var msgstr = ' ';
+    //var msgstr = ' ';
+
     $('#seats :checked').each(function() {
         allSeatsSelected.push($(this).val());
         });
@@ -175,30 +183,30 @@ function resTickets(){
         var rc = 65 + parseInt(allSeatsSelected[i][0]);
         var sn = parseInt(allSeatsSelected[i][1]) + 1;
         var data = JSON.stringify({ "id": responseObjmatches[matchselcted]._id, "row":allSeatsSelected[i][1],"column":allSeatsSelected[i][0]});
-        msgstr += String.fromCharCode(rc)+sn+' ';
+        //msgstr += String.fromCharCode(rc)+sn+' ';
 
         // Create a state change callback 
         xhr.onreadystatechange = function () { 
-            //alert(xhr.readyState);
-            //alert(xhr.status);
             if (xhr.readyState === 4 && xhr.status === 200) { 
                 var responseObj = JSON.parse(this.responseText);
+                res = true;
                 return true;
 
             }
             else if(xhr.readyState === 4 && xhr.status !== 200)
             {
+                res = false;
                 var responseObj = JSON.parse(this.responseText);
-                $('#msg').text(responseObj.msg);
+                $('#error-msg').addClass("error-text");
+                $('#error-msg').text(responseObj.msg);
+                $('#error-msg').show();
                 return false;
             }
-        };
-
+        }
         xhr.send(data);
     }
-    alert('You have succesfully booked tickets:'+msgstr); 
     updateseats(matchid)
-   
+    
 }
 
 function updateseats(matchid){
@@ -264,4 +272,4 @@ function updateseats(matchid){
 
  setInterval(function() {
      updateseats(matchid)
-   }, 3000);
+   }, 2000);
