@@ -15,7 +15,7 @@ router.get('/data', auth,async (req, res) => {
     
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Fan") res.status(403).send({ msg: 'Not an Fan' })
+    if (user.Role != "Fan") return res.status(403).send({ msg: 'Not an Fan' })
     
     return res.send(_.pick(user, ['Firstname', 'Lastname', 'Gender', 'Birthdate', 'City', 'Address']))
 })
@@ -25,7 +25,7 @@ router.put('/editData',auth,async (req, res) => {
 
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Fan") res.status(403).send({ msg: 'Not a Fan' })
+    if (user.Role != "Fan") return res.status(403).send({ msg: 'Not a Fan' })
 
     var Password = user.Password
     if(req.body.Password) {
@@ -98,7 +98,8 @@ router.put('/reserveMatch', auth,async (req, res) => {
     
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Fan") res.status(403).send({ msg: 'Not an Fan' })
+    if (user.Role != "Fan") return res.status(403).send({ msg: 'Not an Fan' })
+    if (!user.Verified) return res.status(401).send({ msg: 'The user is not verified yet' })
 
     let match = await Match.findById(req.body.id)
     if (!match) return res.status(404).send({ msg: 'No Match exists with the given id'})
@@ -159,7 +160,7 @@ router.delete('/cancelReservation/:id', auth,async (req, res) => {
     
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Fan") res.status(403).send({ msg: 'Not an Fan' })
+    if (user.Role != "Fan") return res.status(403).send({ msg: 'Not an Fan' })
 
           .update('matches',{_id:new mongoose.Types.ObjectId(matchID)},{$inc: { [Index] : -1,'Vacant':1, 'Reserved': -1}})
     let ticket = await User.findOne({ Username: req.user.Username, ReservedTickets:{$elemMatch: { _id: new mongoose.Types.ObjectId(req.params.id) }}})

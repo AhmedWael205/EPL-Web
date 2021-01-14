@@ -1,0 +1,414 @@
+{
+	"variables": [],
+	"info": {
+		"name": "EPL",
+		"_postman_id": "3cd66fff-d39c-c844-6cd3-d74550cef9b3",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Successful SIgnup",
+			"request": {
+				"url": "http://localhost:8080/accounts/signup",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Username\": \"Ahmed98\",\n\t\"Email\": \"eng.ahmedwael205@gmail.com\",\n\t\"Password\": \"Sasa1234\",\n\t\"Firstname\":\"Ahmed\",\n\t\"Lastname\":\"Wael\",\n\t\"Birthdate\":\"1998-05-29\",\n\t\"City\":\"Cairo\",\n\t\"Role\": \"Fan\",\n\t\"Gender\":\"Male\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User Home",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 401\"] = responseCode.code === 401;",
+							"tests[\"response has WWW-Authenticate header\"] = (postman.getResponseHeader('WWW-Authenticate'));",
+							"",
+							"var authenticateHeader = postman.getResponseHeader('WWW-Authenticate'),",
+							"    realmStart = authenticateHeader.indexOf('\"',authenticateHeader.indexOf(\"realm\")) + 1 ,",
+							"    realmEnd = authenticateHeader.indexOf('\"',realmStart),",
+							"    realm = authenticateHeader.slice(realmStart,realmEnd),",
+							"    nonceStart = authenticateHeader.indexOf('\"',authenticateHeader.indexOf(\"nonce\")) + 1,",
+							"    nonceEnd = authenticateHeader.indexOf('\"',nonceStart),",
+							"    nonce = authenticateHeader.slice(nonceStart,nonceEnd);",
+							"    ",
+							"postman.setGlobalVariable('echo_digest_realm', realm);",
+							"postman.setGlobalVariable('echo_digest_nonce', nonce);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/home",
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjNjhmNGFlZjdmMjZiY2M3OTkxZTYiLCJSb2xlIjoiQWRtaW4iLCJVc2VybmFtZSI6ImFkbWluMTIzIiwiaWF0IjoxNjA5MzQyMzg5fQ.Z7e4dOiagpxk6krR-BNdyRIxHqQI32FnU4-1Of5Dvys",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "code",
+							"value": "xWnkliVQJURqB2x1",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://www.getpostman.com/oauth2/callback",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "abc123",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "ssh-secret",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Successful Sign In",
+			"request": {
+				"url": "http://localhost:8080/accounts/signin",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Username\": \"ahmed4\",\n\t\"Password\": \"Sasa1234\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getUnverified",
+			"request": {
+				"url": "http://localhost:8080/admin/getUnverified",
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjNjhmNGFlZjdmMjZiY2M3OTkxZTYiLCJSb2xlIjoiQWRtaW4iLCJVc2VybmFtZSI6ImFkbWluMTIzIiwiaWF0IjoxNjA5MzQyMzg5fQ.Z7e4dOiagpxk6krR-BNdyRIxHqQI32FnU4-1Of5Dvys",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getUsers",
+			"request": {
+				"url": "http://localhost:8080/admin/getUsers",
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjNjhmNGFlZjdmMjZiY2M3OTkxZTYiLCJSb2xlIjoiQWRtaW4iLCJVc2VybmFtZSI6ImFkbWluMTIzIiwiaWF0IjoxNjA5MzQyMzg5fQ.Z7e4dOiagpxk6krR-BNdyRIxHqQI32FnU4-1Of5Dvys",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Verify",
+			"request": {
+				"url": "http://localhost:8080/admin/verify/ahmed1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjNjhmNGFlZjdmMjZiY2M3OTkxZTYiLCJSb2xlIjoiQWRtaW4iLCJVc2VybmFtZSI6ImFkbWluMTIzIiwiaWF0IjoxNjA5MzQyMzg5fQ.Z7e4dOiagpxk6krR-BNdyRIxHqQI32FnU4-1Of5Dvys",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Remove",
+			"request": {
+				"url": "http://localhost:8080/admin/remove/ahmed2",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjNjhmNGFlZjdmMjZiY2M3OTkxZTYiLCJSb2xlIjoiQWRtaW4iLCJVc2VybmFtZSI6ImFkbWluMTIzIiwiaWF0IjoxNjA5MzQyMzg5fQ.Z7e4dOiagpxk6krR-BNdyRIxHqQI32FnU4-1Of5Dvys",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "addStadium",
+			"request": {
+				"url": "http://localhost:8080/manager/addStadium",
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjYTE5YjNhMmI0YzVkYjhjZjcyMjIiLCJSb2xlIjoiTWFuYWdlciIsIlVzZXJuYW1lIjoiYWhtZWQ0IiwiaWF0IjoxNjA5MzU5NDczfQ.1eZHQNS14Lb-9Eyb6Rq1MdTcuccQdanMbapFxJ3FWFY",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Name\":\"Eithad Stadium\",\n\t\"Length\":\"10\",\n\t\"Width\":\"5\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "addMatch",
+			"request": {
+				"url": "http://localhost:8080/manager/addMatch",
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjYTE5YjNhMmI0YzVkYjhjZjcyMjIiLCJSb2xlIjoiTWFuYWdlciIsIlVzZXJuYW1lIjoiYWhtZWQ0IiwiaWF0IjoxNjA5MzU5NDczfQ.1eZHQNS14Lb-9Eyb6Rq1MdTcuccQdanMbapFxJ3FWFY",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"HomeTeam\":\"Arsenal\",\n\t\"AwayTeam\":\"Liverpool\",\n\t\"MatchVenue\":\"Eithad Stadium\",\n\t\"Date\":\"2021-01-01T12:00:00.000Z\",\n\t\"MainReferee\":\"Mohamed Ahmed\",\n\t\"LinemanOne\":\"Ahmed Mohamed\",\n\t\"LinemanTwo\":\"Mohamed Mohamed\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Matches",
+			"request": {
+				"url": "http://localhost:8080/manager/Matches",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "viewMatch",
+			"request": {
+				"url": "http://localhost:8080/manager/viewMatch/5fee65923e38f23bc8fa7c22",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "viewSeatStatus",
+			"request": {
+				"url": "http://localhost:8080/manager/viewSeatStatus/5fee6b970448ee4708e06586",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "editMatch",
+			"request": {
+				"url": "http://localhost:8080/manager/editMatch/5fee695605b5476600c12783",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjYTE5YjNhMmI0YzVkYjhjZjcyMjIiLCJSb2xlIjoiTWFuYWdlciIsIlVzZXJuYW1lIjoiYWhtZWQ0IiwiaWF0IjoxNjA5MzU5NDczfQ.1eZHQNS14Lb-9Eyb6Rq1MdTcuccQdanMbapFxJ3FWFY",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"HomeTeam\":\"Arsenal\",\n\t\"AwayTeam\":\"Tottenham\",\n\t\"MatchVenue\":\"Camp Nou\",\n\t\"Date\":\"2021-02-01T12:00:00.000Z\",\n\t\"MainReferee\":\"Mohamed Ahmed\",\n\t\"LinemanOne\":\"Ahmed Mohamed\",\n\t\"LinemanTwo\":\"Mohamed Mohamed\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "vacantReserved",
+			"request": {
+				"url": "http://localhost:8080/manager/vacantReserved",
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVjYTE5YjNhMmI0YzVkYjhjZjcyMjIiLCJSb2xlIjoiTWFuYWdlciIsIlVzZXJuYW1lIjoiYWhtZWQ0IiwiaWF0IjoxNjA5MzU5NDczfQ.1eZHQNS14Lb-9Eyb6Rq1MdTcuccQdanMbapFxJ3FWFY",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "fan/data",
+			"request": {
+				"url": "http://localhost:8080/fan/data",
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVlNzBlZTllZTNkNzUyNjA3ZWE1ZDMiLCJSb2xlIjoiTWFuYWdlciIsIlVzZXJuYW1lIjoiRmFuMTIzIiwiaWF0IjoxNjA5NDYxOTk4fQ.lZMaFGmDND4phgcD4x9Lz-80AdwABGFJbOsnwLdcILE",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "reserveMatch",
+			"request": {
+				"url": "http://localhost:8080/fan/reserveMatch",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVmNDQ3NWZkZjc1NzIyMjg1MmRkMmUiLCJSb2xlIjoiRmFuIiwiVXNlcm5hbWUiOiJBaG1lZDk4IiwiaWF0IjoxNjA5NTE2MTUwfQ.FKtttxZlsjcrlwtliriCpBkFjXnVXuRNLC1Gv776-8I",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5fee6b970448ee4708e06586\",\n    \"row\": 2,\n    \"column\": 3\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "fan/ReservedTickets",
+			"request": {
+				"url": "http://localhost:8080/fan/ReservedTickets",
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVmNDQ3NWZkZjc1NzIyMjg1MmRkMmUiLCJSb2xlIjoiRmFuIiwiVXNlcm5hbWUiOiJBaG1lZDk4IiwiaWF0IjoxNjA5NTE2MTUwfQ.FKtttxZlsjcrlwtliriCpBkFjXnVXuRNLC1Gv776-8I",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "cancelReservation",
+			"request": {
+				"url": "http://localhost:8080/fan/cancelReservation/5fef658d84c00445f0c7bcb5",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVmNDQ3NWZkZjc1NzIyMjg1MmRkMmUiLCJSb2xlIjoiRmFuIiwiVXNlcm5hbWUiOiJBaG1lZDk4IiwiaWF0IjoxNjA5NTE2MTUwfQ.FKtttxZlsjcrlwtliriCpBkFjXnVXuRNLC1Gv776-8I",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "fan/editData",
+			"request": {
+				"url": "http://localhost:8080/fan/editData",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmVmNDQ3NWZkZjc1NzIyMjg1MmRkMmUiLCJSb2xlIjoiRmFuIiwiVXNlcm5hbWUiOiJBaG1lZDk4IiwiaWF0IjoxNjA5NTE2MTUwfQ.FKtttxZlsjcrlwtliriCpBkFjXnVXuRNLC1Gv776-8I",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Firstname\": \"Ahmed\",\n    \"Lastname\": \"Hamdy\",\n    \"Gender\": \"Male\",\n    \"Birthdate\": \"1998-06-29T00:00:00.000Z\",\n    \"Password\":\"Sasa1234\",\n    \"NewPassword\":null,\n    \"City\": \"Giza\",\n    \"Address\": \"Test\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

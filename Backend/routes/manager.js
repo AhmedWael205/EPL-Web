@@ -12,7 +12,9 @@ router.post('/addStadium', auth,async (req, res) => {
     
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Manager") res.status(403).send({ msg: 'Not a Manager' })
+    if (user.Role != "Manager") return res.status(403).send({ msg: 'Not a Manager' })
+    if (!user.Verified) return res.status(401).send({ msg: 'The user is not verified yet' })
+
 
     const { error } = validateStadium(req.body)
     if (error) return res.status(400).send({ msg: error.details[0].message })
@@ -36,7 +38,9 @@ router.post('/addMatch', auth,async (req, res) => {
     
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Manager") res.status(403).send({ msg: 'Not a Manager' })
+    if (user.Role != "Manager") return res.status(403).send({ msg: 'Not a Manager' })
+    if (!user.Verified) return res.status(401).send({ msg: 'The user is not verified yet' })
+
 
     const { error } = validateMatch(req.body)
     if (error) return res.status(400).send({ msg: error.details[0].message })
@@ -86,7 +90,9 @@ router.put('/editMatch/:id',auth,async (req, res) => {
 
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Manager") res.status(403).send({ msg: 'Not a Manager' })
+    if (user.Role != "Manager") return res.status(403).send({ msg: 'Not a Manager' })
+    if (!user.Verified) return res.status(401).send({ msg: 'The user is not verified yet' })
+
 
     let match = await Match.findById(req.params.id)
     if (!match) return res.status(404).send({ msg: 'No Match exists with the given id'})
@@ -143,7 +149,7 @@ router.get('/vacantReserved', auth, async (req, res) => {
 
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Manager") res.status(403).send({ msg: 'Not a Manager' })
+    if (user.Role != "Manager") return res.status(403).send({ msg: 'Not a Manager' })
     
     let matches = await Match.find().select('HomeTeam AwayTeam Date Vacant Reserved')
     if (!matches) return res.status(404).send({ msg: 'No Matches' })
