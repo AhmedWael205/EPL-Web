@@ -151,7 +151,7 @@ router.get('/ReservedTickets', auth,async (req, res) => {
     
     let user = await User.findOne({ Username: req.user.Username })
     if (!user) return res.status(404).send({ msg: 'UserNotFound' })
-    if (user.Role != "Fan") res.status(403).send({ msg: 'Not an Fan' })
+    if (user.Role != "Fan") return res.status(403).send({ msg: 'Not an Fan' })
     
     return res.send(_.pick(user, ['ReservedTickets']))
 })
