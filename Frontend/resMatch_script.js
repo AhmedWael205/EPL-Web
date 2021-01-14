@@ -2,6 +2,14 @@ $(document).ready(function(){
     sendJSON();
 })
 
+function hasNumber(myString) {
+    return /\d/.test(myString);
+  }
+function hasLetter(str) {
+    return (/[a-zA-Z]/.test(str));
+}
+
+
 var responseObjmatches ;
 var responsobjseaststatus;
 var rows;
@@ -85,11 +93,11 @@ function buildstad(){
     
             // Print received data from server            
             responsobjseaststatus = JSON.parse(this.responseText);
-            seats = responsobjseaststatus.SeatStatus.length;
-            rows = responsobjseaststatus.SeatStatus[0].length;
+            seats = parseInt( responsobjseaststatus.SeatStatus.length);
+            rows = parseInt( responsobjseaststatus.SeatStatus[0].length);
 
             $('#seats').append('<tr>'
-                            +'<td colspan="'+seats+1+'"><div class="stadium">FIELD</div></td>'
+                            +'<td colspan="'+(seats+1)+'"><div class="stadium">FIELD</div></td>'
                             +'<td width="10px"></td>'
                             +'<td rowspan="'+rows+'">'
                             +'<div class="smallBox greenBox">Selected Seat</div> <br/>'
@@ -142,11 +150,11 @@ function buildstad(){
 
 function resTickets(){
 
-    if($("#crdnumber").val().length != 19 || $("#cvv").val().length != 3){
+    if($("#crdnumber").val().length != 19 || $("#cvv").val().length != 3 || hasLetter($("#crdnumber").val().split("-", 4).join('') || hasLetter($("#cvv").val()))){
         console.log($("#crdnumber").val().length);
         console.log($("#cvv").val().length)
         $('#error-msg').addClass("error-text");
-        $('#error-msg').text("Please enter your credit card number and cvv");
+        $('#error-msg').text("Please enter a valid credit card number and cvv");
         $('#error-msg').show();
         return;
     }

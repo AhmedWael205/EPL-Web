@@ -37,6 +37,7 @@ table#seats
   margin: auto;
   text-align:center; 
   width: auto;
+  height: auto;
 }
 
 table#matchdetails

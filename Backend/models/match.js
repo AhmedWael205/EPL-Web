@@ -4,20 +4,20 @@ const mongoose = require('mongoose')
 const matchSchema = new mongoose.Schema({
     HomeTeam: {
       type: String,
-      enum: ['Arsenal',	'Fulham', 'Sheffield United', 'Aston Villa'
-      , 'Leeds United', 'Southampton', 'Leicester City', 'Tottenham'
-      , 'Burnley', 'Liverpool', 'West Bromwich', 'Chelsea'
-      , 'Manchester City', 'WestHam United', 'Crystal Palace'
-      , 'Manchester United', 'Everton', 'Newcastle United'],
+      enum: ['ENPPI',	'Aswan', 'El Gaish', 'El Gouna'
+      , 'El Entag El Harby', 'Ceramica Cleopatra', 'National Bank', 'Wadi Degla'
+      , 'Pyramids', 'Al Ittihad', 'Al Mokawloon', 'Zamalek'
+      , 'Al Masry', 'Ismaily', 'Al Ahly'
+      , 'Misr lel Makkasa', 'Somouha', 'Ghazl El Mahalla'],
       required:true
     },
     AwayTeam: {
       type: String,
-      enum: ['Arsenal',	'Fulham', 'Sheffield United', 'Aston Villa'
-      , 'Leeds United', 'Southampton', 'Leicester City', 'Tottenham'
-      , 'Burnley', 'Liverpool', 'West Bromwich', 'Chelsea'
-      , 'Manchester City', 'WestHam United', 'Crystal Palace'
-      , 'Manchester United', 'Everton', 'Newcastle United'],
+      enum: ['ENPPI',	'Aswan', 'El Gaish', 'El Gouna'
+      , 'El Entag El Harby', 'Ceramica Cleopatra', 'National Bank', 'Wadi Degla'
+      , 'Pyramids', 'Al Ittihad', 'Al Mokawloon', 'Zamalek'
+      , 'Al Masry', 'Ismaily', 'Al Ahly'
+      , 'Misr lel Makkasa', 'Somouha', 'Ghazl El Mahalla'],
       required:true,
       validate: {
         validator: function() {

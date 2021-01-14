@@ -48,7 +48,7 @@ function sendJSON(){
             return false;
         }
     };
-    alert(seatsrow.value);
-    var data = JSON.stringify({ "Name": StadName.value, "Length":rows.value,"Width":seatsrow.value});
+    
+    var data = JSON.stringify({ "Name": StadName.value, "Length":seatsrow.value,"Width":rows.value});
     xhr.send(data);
 } 
