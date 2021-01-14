@@ -9,7 +9,8 @@ var seats;
 var matchselcted;
 
 function sendJSON(){ 
-    // Creating a XHR object 
+    // Creating a XHR object
+    $("span").hide("#error-msg"); 
     $('#matchdetails').empty();
     let xhr = new XMLHttpRequest(); 
     let url = "http://localhost:8080/fan/ReservedTickets"; 
@@ -29,6 +30,9 @@ function sendJSON(){
             
             if(responseObjmatches.ReservedTickets.length == 0){
                 $('#msg').text("You have no tickets");
+                $('#error-msg').addClass("error-text");
+                $('#error-msg').text("You have no tickets");
+                $('#error-msg').show();
                 return true;
             }
 

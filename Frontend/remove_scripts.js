@@ -79,7 +79,7 @@ var responseObj = JSON.parse(this.responseText);
 for (i=0; i < responseObj.length;i++)
 {
     $('#Submitform').append('<label id='+i+'>User '+i+' , '+responseObj[i].Username+'</label>');
-    $('#'+i+'').append('<input style="display:block;"id="button'+i+'" type="button" value="✗" />');
+    $('#'+i+'').append('<input style="display:block;"id="button'+i+'" type="button" value="✗" /><br><br>');
 
 //alert('#button'+i+'');
 
@@ -91,7 +91,9 @@ $(':button').on('click',function(){
         if (this.id == 'button1') {
             alert('Button 1 was clicked');
         }*/
+        
         var c= this.id[6];
+        console.log(c)
         Remove(responseObj[c].Username);
         //Verify(c);
     });

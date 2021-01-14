@@ -176,6 +176,12 @@ function resTickets(){
     return !allSeatsReserved.includes(item); 
     })
 
+    if(allSeatsSelected.length == 0){
+        $('#error-msg').addClass("error-text");
+        $('#error-msg').text("Please Select your seats");
+        $('#error-msg').show();
+    }
+
     for (i=0; i < allSeatsSelected.length;i++){
         // Creating a XHR object 
         let xhr = new XMLHttpRequest(); 
